@@ -162,10 +162,16 @@ var UIController = (function() {
         numSplit = num.split('.');
 
         int = numSplit[0];
-
-        if(int.length > 3) {
-            int = int.substr(0, int.length - 3) + ',' + int.substr(int.length - 3, 3);
-        }
+            
+        function intSubComma (n){
+            if (int.length > n) { 
+                int = int.substr(0, int.length - n) + ',' + int.substr(int.length - n, n);
+            }
+        };
+         
+            intSubComma(3);
+            intSubComma(7);
+            intSubComma(11);
 
         dec = numSplit[1];
 
