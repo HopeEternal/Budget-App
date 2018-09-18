@@ -258,8 +258,8 @@ h2 {
     display: none;
 }
 
-.item__delete--btn:focus { outline: none; }
-.item__delete--btn:active { transform: translateY(2px); }
+.item__delete--btn:focus, .remove__all--btn:focus { outline: none; }
+.item__delete--btn:active, .remove__all--btn:active { transform: translateY(2px); }
 
 .item:hover .item__delete--btn { display: block; }
 .item:hover .item__value { transform: translateX(-20px); }
@@ -276,3 +276,38 @@ h2 {
 .unpaid .item__percentage { box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1); }
 .unpaid:hover .item__description { font-weight: 900; }
 
+/*Remove All Button*/
+.removeAllBtnCont {
+    background: #f7f7f7;
+    border-top: #e7e7e7 1px solid;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.remove__all--btn {
+    font-size: 35px;
+    background: none;
+    border: none;
+    color: #555555;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.1;
+    padding-top: 5px;
+}
+
+.remove__all--btn i {
+    color: #FF5049;
+}
+
+.remove__all--btn span {
+    text-transform: uppercase;
+    font-size: 18px;
+    position: relative;
+    bottom: 5px;
+
+} 

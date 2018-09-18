@@ -87,6 +87,20 @@ var budgetController = (function() {
 
         },
 
+        deleteAllItems: function() {
+            console.log('Delete All Items Firing to clean out array');
+            console.log(data.allItems.exp);
+                data.allItems.exp = [];
+                data.allItems.inc = [];
+
+                data.totals.exp = 0;
+                data.totals.inc = 0;
+
+                data.budget = 0;
+                data.percentage = -1;
+
+        }, 
+
         calculateBudget: function() {
             //calc total income and expenses
             calculateTotal('exp');
@@ -150,7 +164,8 @@ var UIController = (function() {
         percentageLabel: '.budget__expenses--percentage',
         container: '.container',
         expensesPercLabel: '.item__percentage',
-        dateLabel: '.budget__title--month'
+        dateLabel: '.budget__title--month',
+        removeAllBtn: '.remove__all--btn'
     };
 
     var formatNumber = function (num, type) {
@@ -221,6 +236,18 @@ var UIController = (function() {
             
         },
 
+        deleteListAll: function() {
+            var element = document.querySelector('.expenses__list');
+            while (element.firstChild) {
+              element.removeChild(element.firstChild);
+            }
+
+            var element = document.querySelector('.income__list');
+            while (element.firstChild) {
+              element.removeChild(element.firstChild);
+            }            
+        },
+
         clearFields: function() {
             var fields, fieldsArr;
             
@@ -259,6 +286,14 @@ var UIController = (function() {
                     current.textContent = '---';
                 }
             });
+        },
+
+        clearPercAndBudget: function() {
+            document.querySelector(DOMstrings.budgetLabel).textContent = formatNumber(0, '');
+            document.querySelector(DOMstrings.incomeLabel).textContent = formatNumber(0, '');
+            document.querySelector(DOMstrings.expensesLabel).textContent = formatNumber(0, '');
+            document.querySelector(DOMstrings.percentageLabel).textContent = '---';
+
         },
 
         displayMonth: function() {
@@ -314,6 +349,8 @@ var setupEventListeners = function () {
     document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
 
     document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changedType);
+
+    document.querySelector(DOM.removeAllBtn).addEventListener('click', removeAllItems);
 
 };
 
@@ -386,6 +423,19 @@ var setupEventListeners = function () {
             updateBudget();
         }
 
+    };
+
+    var removeAllItems = function() {
+        console.log('Remove All Items button was clicked');
+        
+        //1. Delete all items from the arrays and totals, aet budget back to 0, and percentage to -1 in data object in Budget Controller
+            budgetCtrl.deleteAllItems();
+
+        //4. Show new percentage and budget in UI
+            UICtrl.clearPercAndBudget();
+
+        //5. Delete all list items from UI for exp and inc (refer to deleteListItem and parent node code)
+            UICtrl.deleteListAll();
     };
 
     return {
